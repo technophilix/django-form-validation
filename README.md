@@ -1,4 +1,4 @@
-# Django Form Validator Like Laravel [![image](https://img.shields.io/pypi/v/django-rulebase.svg)](https://pypi.python.org/pypi/django-rulebase) [![image](https://img.shields.io/pypi/pyversions/django-rulebase.svg)](https://pypi.python.org/pypi/django-rulebase) [![image](https://travis-ci.org/mojtabaasadi/django-rulebase.svg?branch=master)](https://travis-ci.org/mojtabaasadi/django-rulebase)
+# Django Form Validator Like Laravel [![image](https://img.shields.io/pypi/v/django-rulebase.svg)](https://pypi.python.org/pypi/) [![image](https://img.shields.io/pypi/pyversions/django-rulebase.svg)](https://pypi.python.org/pypi/django-rulebase) [![image](https://travis-ci.org/mojtabaasadi/django-rulebase.svg?branch=master)](https://travis-ci.org/mojtabaasadi/django-rulebase)
 
 
 Django form validation for REST api and template form without using form class.
