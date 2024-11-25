@@ -96,7 +96,7 @@ class accepted(Rule):
 
 
 class active_url(Rule):
-    """The field under validation must have a valid A or AAAA record according to the 
+    """The field under validation must have a valid A or AAAA record according to the
         (pythondns)[http://www.dnspython.org/examples.html] module """
     name = "active-url"
 
@@ -279,7 +279,7 @@ class confirmed(Rule):
 
 class date(Rule):
     """
-        The field under validation must be a correct according 
+        The field under validation must be a correct according
         to dateparser module
     """
     name = "date"
@@ -562,7 +562,7 @@ class _json(Rule):
 class lt(Rule):
     """
     The field under validation must be less than the given field.
-    The two fields must be of the same type. Strings, numerics, arrays, 
+    The two fields must be of the same type. Strings, numerics, arrays,
     and files are evaluated using the same conventions as the 'size' rule.
     """
     name = "lt"
@@ -654,7 +654,7 @@ class mimes(Rule):
 
 class _min(Rule):
     """
-    The field under validation must have a minimum value. Strings, numerics, arrays, 
+    The field under validation must have a minimum value. Strings, numerics, arrays,
     and files are evaluated in the same fashion as the size rule.
     """
     name = "min"
@@ -769,7 +769,7 @@ class required(Rule):
 
 class required_if(Rule):
     """
-    The field under validation must be present and not empty 
+    The field under validation must be present and not empty
     if the another field is equal to any value.
     """
     name = "required-if"
@@ -790,7 +790,7 @@ class required_if(Rule):
 
 class required_unless(Rule):
     """
-        The field under validation must be present and not empty 
+        The field under validation must be present and not empty
         unless the another field is equal to any value.
     """
     name = "required-unless"
@@ -811,7 +811,7 @@ class required_unless(Rule):
 
 class required_with(Rule):
     """
-    The field under validation must be present and not empty only 
+    The field under validation must be present and not empty only
     if any of the other specified fields are present.
     """
     name = "required-with"
@@ -883,7 +883,7 @@ class size(Rule):
         The field under validation must have a size matching the given value.
         For string data, value corresponds to the number of characters.
         For numeric data, value corresponds to a given integer value.
-        For an array, size corresponds to the count of the array. For files, 
+        For an array, size corresponds to the count of the array. For files,
         size corresponds to the file size in kilobytes.
     """
     name = "size"
@@ -933,9 +933,10 @@ class unique(Rule):
     name = "unique"
 
     def message(self):
-        return "{attribute} must be unique in {options[0]},{options[1]} field"
+        return "This {attribute} is already in our database"
 
     def passes(self, value):
+        # print(value)
         table = self.options[0]
         column = self.options[1] if self.options[1] != None else 'name'
         try:
@@ -944,9 +945,13 @@ class unique(Rule):
             else:
                 cr = connection.cursor()
             cr.execute("select * from {} where {}={}".format(table, column,
-                                                             value if not isinstance(value,
-                                                                                     str) else "'" + value + "'"))
-            return len(cr.fetchall()) == 1
+                                                             value if not isinstance(value, str) else "'" + value + "'"))
+
+            # print(len(cr.fetchall()))
+            if len(cr.fetchall()) == 1:
+                return False
+            else:
+                return True
         except Exception as e:
             return False
 
